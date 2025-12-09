@@ -1,18 +1,12 @@
 import sys
 import os
 
-<<<<<<< HEAD
 # Configurar el path correctamente
 current_dir = os.path.dirname(os.path.abspath(__file__))
 backend_dir = os.path.dirname(current_dir)
 sys.path.insert(0, backend_dir)
 
 # Ahora los imports funcionarán
-=======
-# Añadir el directorio actual al path
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
->>>>>>> 507a0ad87c99233659851fe5d37325f93c31083c
 from app.init import create_app, db
 from app.models import User, Game
 
@@ -32,7 +26,6 @@ with app.app_context():
                 email='admin@portal.com',
                 is_admin=True
             )
-<<<<<<< HEAD
             admin_user.set_password('admin123')
             db.session.add(admin_user)
             db.session.commit()
@@ -69,11 +62,3 @@ with app.app_context():
     except Exception as e:
         print(f"❌ Error: {e}")
         sys.exit(1)
-=======
-        ]
-        db.session.add_all(sample_games)
-        db.session.commit()
-        print(f"✅ {len(sample_games)} juegos de ejemplo creados")
-    
-    print("🎉 Base de datos inicializada correctamente!")
->>>>>>> 507a0ad87c99233659851fe5d37325f93c31083c
