@@ -8,48 +8,30 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Inicializar extensiones
 db = SQLAlchemy()
 migrate = Migrate()
 jwt = JWTManager()
-cors = CORS()
 
 def create_app():
     app = Flask(__name__)
     
-    # Configuración desde variables de entorno
+    # Configuración
     app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'clave-secreta-temporal')
     app.config['JWT_SECRET_KEY'] = os.environ.get('JWT_SECRET_KEY', 'jwt-clave-secreta')
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'postgresql://portal_user:portal_password@localhost:5432/portal_juegos')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
-    # Inicializar extensiones con la app
+    # Inicializar extensiones
     db.init_app(app)
     migrate.init_app(app, db)
     jwt.init_app(app)
     
-    # CONFIGURACIÓN CORS PARA PRODUCCIÓN
-    # Cambia "portal-juegos.onrender.com" por tu URL real si es diferente
-    cors.init_app(app, resources={
-        r"/api/*": {
-            "origins": [
-                "https://portal-juegos.onrender.com",  # Tu frontend en Render
-                "https://portal-juegos-api.onrender.com",  # El propio backend
-                "http://localhost:8080",  # Desarrollo local Vue
-                "http://localhost:5173",  # Vite dev server
-                "http://localhost:5000"   # Desarrollo local Flask
-            ],
-            "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-            "allow_headers": ["Content-Type", "Authorization"],
-            "supports_credentials": True,
-            "max_age": 3600
-        }
-    })
+    # ¡¡¡CORS PERMITIENDO TODOS LOS ORÍGENES!!!
+    CORS(app, resources={r"/api/*": {"origins": "*"}})
     
-    # Importar y registrar blueprints
-    with app.app_context():
-        from . import routes
-        app.register_blueprint(routes.games_bp, url_prefix='/api/games')
-        app.register_blueprint(routes.auth_bp, url_prefix='/api/auth')
+    # Registrar blueprints
+    from . import routes
+    app.register_blueprint(routes.games_bp, url_prefix='/api/games')
+    app.register_blueprint(routes.auth_bp, url_prefix='/api/auth')
     
     return app
