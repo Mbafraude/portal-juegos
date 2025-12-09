@@ -1,3 +1,9 @@
+import sys
+import os
+
+# Añadir el directorio actual al path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from app.init import create_app, db
 from app.models import User, Game
 
