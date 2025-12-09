@@ -1,0 +1,71 @@
+{
+  "name": "portal-juegos-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Frontend Vue.js para el Portal de Juegos",
+  "author": "Tu Nombre",
+  "license": "MIT",
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "serve:dev": "vue-cli-service serve --mode development",
+    "build": "vue-cli-service build",
+    "build:dev": "vue-cli-service build --mode development",
+    "build:prod": "vue-cli-service build --mode production",
+    "lint": "vue-cli-service lint",
+    "lint:fix": "vue-cli-service lint --fix",
+    "preview": "npx serve dist -p 4173",
+    "preview:local": "npx serve dist -l 4173",
+    "test": "echo \"No tests specified\" && exit 0",
+    "clean": "rm -rf dist node_modules",
+    "install:ci": "npm ci --silent",
+    "deploy": "npm run build:prod",
+    "dev": "vue-cli-service serve --open"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "core-js": "^3.26.1",
+    "vue": "^3.3.4",
+    "vue-router": "^4.2.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.5",
+    "@babel/eslint-parser": "^7.22.5",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-plugin-eslint": "^5.0.8",
+    "@vue/cli-service": "^5.0.8",
+    "eslint": "^8.45.0",
+    "eslint-plugin-vue": "^9.17.0"
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not IE 11"
+  ],
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true,
+      "browser": true,
+      "es2021": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser",
+      "ecmaVersion": 2021,
+      "sourceType": "module"
+    },
+    "rules": {
+      "vue/multi-word-component-names": "off",
+      "no-console": "warn",
+      "no-debugger": "warn"
+    }
+  }
+}
