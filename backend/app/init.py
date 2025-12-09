@@ -27,7 +27,24 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
     jwt.init_app(app)
-    cors.init_app(app)
+    
+    # CONFIGURACIÓN CORS PARA PRODUCCIÓN
+    # Cambia "portal-juegos.onrender.com" por tu URL real si es diferente
+    cors.init_app(app, resources={
+        r"/api/*": {
+            "origins": [
+                "https://portal-juegos.onrender.com",  # Tu frontend en Render
+                "https://portal-juegos-api.onrender.com",  # El propio backend
+                "http://localhost:8080",  # Desarrollo local Vue
+                "http://localhost:5173",  # Vite dev server
+                "http://localhost:5000"   # Desarrollo local Flask
+            ],
+            "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+            "allow_headers": ["Content-Type", "Authorization"],
+            "supports_credentials": True,
+            "max_age": 3600
+        }
+    })
     
     # Importar y registrar blueprints
     with app.app_context():
